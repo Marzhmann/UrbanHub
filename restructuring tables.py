@@ -50,10 +50,10 @@ labels_list.reverse()
 for labels in labels_list:
     output_df.insert(loc=0, column=labels, value=1)
 
-workbook = openpyxl.load_workbook(r"E:\Projects\UrbanHub\files\Output 02 - no energy fix.xlsx")
-for sheet in workbook.worksheets:
-# for sheet in range(2):
-#     input_df = pd.read_excel(r"E:\Projects\UrbanHub\files\Output 02 - no energy fix.xlsx", sheet_name=sheet)
+# workbook = openpyxl.load_workbook(r"E:\Projects\UrbanHub\files\Output 02 - no energy fix.xlsx")
+# for sheet in workbook.worksheets:
+for sheet in range(1):
+    input_df = pd.read_excel(r"E:\Projects\UrbanHub\files\Output 02 - no energy fix.xlsx", sheet_name=sheet)
 
     input_df = input_df.T
     input_df.columns = input_df.iloc[0]
@@ -70,8 +70,8 @@ for sheet in workbook.worksheets:
 
 output_df = output_df.reset_index(drop=True)
 
-# print(output_df)
+print(output_df)
 
-writer = pd.ExcelWriter('output.xlsx')
-output_df.to_excel(writer)
-writer.save()
+# writer = pd.ExcelWriter('output.xlsx')
+# output_df.to_excel(writer)
+# writer.save()
