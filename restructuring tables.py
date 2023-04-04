@@ -70,4 +70,8 @@ for sheet in workbook.worksheets:
 
 output_df = output_df.reset_index(drop=True)
 
-print(output_df)
+# print(output_df)
+
+writer = pd.ExcelWriter('output.xlsx')
+output_df.to_excel(writer)
+writer.save()
