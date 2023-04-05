@@ -1,8 +1,10 @@
 import pandas as pd
 import openpyxl
 
+# creating a dataframe to fill with desired structure
 output_df = pd.DataFrame()
 
+# column labels for output dataframe
 labels_list = ["ID",
                "Typology",
                "Green space ratio",
@@ -44,20 +46,27 @@ labels_list = ["ID",
                "Total EUI - Cold",
                "Total EUI - Hot"]
 
+# each label is added to the left side of columns and shift the columns to the right
+# so labels_list has to be reversed
 labels_list.reverse()
 
+# inserting labels_list items as columns names
 for labels in labels_list:
     output_df.insert(loc=0, column=labels, value=1)
 
+# opening each sheet in the input excel file
 # workbook = openpyxl.load_workbook(r"E:\Projects\UrbanHub\files\Output 02 - no energy fix.xlsx")
 # for sheet in workbook.worksheets:
 for sheet in range(1):
     input_df = pd.read_excel(r"E:\Projects\UrbanHub\files\Output 04 - no energy fix.xlsx", sheet_name=sheet)
+    # Transposing dataframe and set index
     input_df = input_df.T
     input_df = input_df.reset_index(drop=True)
 
+    # returning number of rows in the input dataframe
     file_length = len(input_df)
 
+    # reading data from input dataframe (existing excel file) and assign them to variables
     sheet_id = input_df.iloc[1:, 5]
     sheet_typology = pd.DataFrame({"Typology": [input_df.iloc[0, 0]] * file_length})
     sheet_green_space = pd.DataFrame({"Green space ratio": [input_df.iloc[1, 0]] * file_length})
@@ -97,8 +106,11 @@ for sheet in range(1):
     sheet_walkscore = input_df.iloc[1:, 28]
     sheet_svf = input_df.iloc[1:, 29]
 
+    # making a copy of output dataframe and write new structure to it
+    # this dataframe will be overwritten on each iteration an added to the output dataframe
     output_df_dup = output_df.copy()
 
+    # writing variables to the copy of output dataframe
     output_df_dup.loc[:, 'ID'] = sheet_id
     # output_df_dup.loc[:, 'Bldg Centroids x'] = sheet_cent
     # output_df_dup.loc[:, 'Bldg Centroids y'] = sheet_cent
@@ -139,10 +151,13 @@ for sheet in range(1):
     output_df_dup["Total EUI - Cold"] = sheet_eui_c
     output_df_dup["Total EUI - Hot"] = sheet_eui_h
 
+    # appending the copy of output dataframe to final output dataframe
     output_df = pd.concat([output_df, output_df_dup])
 
+# reseting index numbers
 output_df = output_df.reset_index(drop=True)
 
+# converting output dataframe to an excel file
 writer = pd.ExcelWriter('output.xlsx')
 output_df.to_excel(writer)
 writer.save()
