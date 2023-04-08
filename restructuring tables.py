@@ -82,6 +82,7 @@ for sheet in range(0, 1):
     sheet_eui_h = pd.DataFrame({"Total EUI - Hot": [input_df.iloc[5, 4]] * file_length})
     sheet_cent = str(input_df.iloc[1:, 6])
     sheet_id = input_df.iloc[1:, 5]
+    sheet_type = sheet_id.apply(lambda x: 0 if x.startswith("P") else 1)
     sheet_length = input_df.iloc[1:, 7]
     sheet_width = input_df.iloc[1:, 8]
     sheet_story = input_df.iloc[1:, 9]
@@ -120,7 +121,7 @@ for sheet in range(0, 1):
     output_df["Sub street"] = sheet_sub_street
     output_df["Bldg Footprint"] = sheet_bldg_fprint
     output_df["Density"] = sheet_density
-    # output_df["Type (Bldg:1,Park:0)"] = "1" if
+    output_df["Type (Bldg:1,Park:0)"] = sheet_type
     # output_df["Bldg Centroids x"] = sheet_cent
     # output_df["Bldg Centroids y"] = sheet_cent
     output_df["Lengths"] = sheet_length
