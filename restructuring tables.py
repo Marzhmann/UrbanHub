@@ -161,6 +161,4 @@ for sheet in range(0, 1):
 output_df = output_df.reset_index(drop=True)
 
 # converting output dataframe to an excel file
-writer = pd.ExcelWriter('output.xlsx')
-output_df.to_excel(writer)
-writer.save()
+output_df.to_excel("output.xlsx")
