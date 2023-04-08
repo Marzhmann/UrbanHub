@@ -1,4 +1,5 @@
 import pandas as pd
+from pandas import DataFrame
 
 # creating a dataframe to fill with desired structure
 output_df = pd.DataFrame()
@@ -69,7 +70,7 @@ for sheet in range(0, 1):
     sheet_typology = pd.DataFrame({"Typology": [input_df.iloc[0, 0]] * file_length})
     sheet_green_space = pd.DataFrame({"Green space ratio": [input_df.iloc[1, 0]] * file_length})
     sheet_x = pd.DataFrame({"X": [input_df.iloc[2, 0]] * file_length})
-    sheet_y = pd.DataFrame({"Y": [input_df.iloc[3, 0]] * file_length})
+    sheet_y: DataFrame = pd.DataFrame({"Y": [input_df.iloc[3, 0]] * file_length})
     sheet_rotation = pd.DataFrame({"Rotation": [input_df.iloc[4, 0]] * file_length})
     sheet_main_street = pd.DataFrame({"Main street": [input_df.iloc[5, 0]] * file_length})
     sheet_sub_street = pd.DataFrame({"Sub street": [input_df.iloc[6, 0]] * file_length})
@@ -80,7 +81,7 @@ for sheet in range(0, 1):
     sheet_shaded = pd.DataFrame({"Ave. Percent of Shaded area": [input_df.iloc[3, 4]] * file_length})
     sheet_eui_c = pd.DataFrame({"Total EUI - Cold": [input_df.iloc[4, 4]] * file_length})
     sheet_eui_h = pd.DataFrame({"Total EUI - Hot": [input_df.iloc[5, 4]] * file_length})
-    sheet_cent = str(input_df.iloc[1:, 6])
+    sheet_cent = input_df.iloc[1:, 6]
     sheet_id = input_df.iloc[1:, 5]
     sheet_type = sheet_id.apply(lambda x: 0 if x.startswith("P") else 1)
     sheet_length = input_df.iloc[1:, 7]
@@ -122,8 +123,8 @@ for sheet in range(0, 1):
     output_df["Bldg Footprint"] = sheet_bldg_fprint
     output_df["Density"] = sheet_density
     output_df["Type (Bldg:1,Park:0)"] = sheet_type
-    # output_df["Bldg Centroids x"] = sheet_cent
-    # output_df["Bldg Centroids y"] = sheet_cent
+    output_df["Bldg Centroids x"] = sheet_cent.apply(lambda x: float(x.split(",")[0][1:]))
+    output_df["Bldg Centroids y"] = sheet_cent.apply(lambda x: float(x.split(",")[1]))
     output_df["Lengths"] = sheet_length
     output_df["Widths"] = sheet_width
     output_df["Stories"] = sheet_story
