@@ -69,7 +69,7 @@ for sheet in range(0, 1):
     sheet_typology = pd.DataFrame({"Typology": [input_df.iloc[0, 0]] * file_length})
     sheet_green_space = pd.DataFrame({"Green space ratio": [input_df.iloc[1, 0]] * file_length})
     sheet_x = pd.DataFrame({"X": [input_df.iloc[2, 0]] * file_length})
-    sheet_y: DataFrame = pd.DataFrame({"Y": [input_df.iloc[3, 0]] * file_length})
+    sheet_y = pd.DataFrame({"Y": [input_df.iloc[3, 0]] * file_length})
     sheet_rotation = pd.DataFrame({"Rotation": [input_df.iloc[4, 0]] * file_length})
     sheet_main_street = pd.DataFrame({"Main street": [input_df.iloc[5, 0]] * file_length})
     sheet_sub_street = pd.DataFrame({"Sub street": [input_df.iloc[6, 0]] * file_length})
