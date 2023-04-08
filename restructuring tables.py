@@ -1,5 +1,4 @@
 import pandas as pd
-from pandas import DataFrame
 
 # creating a dataframe to fill with desired structure
 output_df = pd.DataFrame()
